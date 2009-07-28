@@ -4,7 +4,7 @@ Donate link: http://konrad-haenel.de/downloads/freelance-status-wordpress-widget
 Tags: status, sidebar, widget, freelance
 Requires at least: 2.7
 Tested up to: 2.8.2
-Stable tag: 0.0.3
+Stable tag: 0.0.4
 
 Sidebar-widget displaying your freelance-availability status in a nice box. Might be used for other stuff as well.
 
@@ -29,6 +29,9 @@ GPL
 1. freelance_status_screenshot.png
 
 == Changelog ==
+
+= 0.0.4 =
+* fixed: widget constantly resetting options
 
 = 0.0.3 =
 * Added text and color options for two states (A and B)

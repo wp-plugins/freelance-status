@@ -49,11 +49,6 @@ function widget_flstatus_init() {
 		</div>
 <?php
 		 echo $after_widget;
-		 
-        /*echo $before_widget;
-        echo $before_title . $title . $after_title;
-        echo $text;
-        echo $after_widget;*/
     }
 
     // This is the function that outputs the form to let users edit
@@ -73,13 +68,13 @@ function widget_flstatus_init() {
 			$newoptions['statusAcolor'] = strip_tags(stripslashes($_POST['flstatus-statusAcolor']));
 			$newoptions['statusBcolor'] = strip_tags(stripslashes($_POST['flstatus-statusBcolor']));
 			$newoptions['status'] = strip_tags(stripslashes($_POST['flstatus-status']));
-        }
-
-        // If original widget options do not match control form
-        // submission options, update them.
-        if ( $options != $newoptions ) {
-            $options = $newoptions;
-            update_option('widget_flstatus', $options);
+			
+			// If original widget options do not match control form
+	        // submission options, update them.
+	        if ( $options != $newoptions ) {
+	            $options = $newoptions;
+	            update_option('widget_flstatus', $options);
+	        }
         }
 
         // Format options as valid HTML. Hey, why not.
