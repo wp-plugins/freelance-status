@@ -32,9 +32,12 @@ function widget_flstatus_init() {
 
         // Collect our widget's options, or define their defaults.
         $options = get_option('widget_flstatus');
-        $title = empty($options['title']) ? 'Freelance Status' : $options['title'];
-        $text = empty($options['text']) ? 'Hello World!' : $options['text'];
-		$statuscolor = empty($options['statuscolor']) ? '#999999' : $options['statuscolor'];
+        $title = empty($options['title']) ? 'My Status:' : $options['title'];
+        $textA = empty($options['textA']) ? 'I\'m available.' : $options['textA'];
+		$textB = empty($options['textB']) ? 'I\'m not available.' : $options['textB'];
+		$statusAcolor = empty($options['statusAcolor']) ? '#5d8c5b' : $options['statusAcolor'];
+		$statusBcolor = empty($options['statusBcolor']) ? '#8c5b5b' : $options['statusBcolor'];
+		$status = empty($options['status']) ? 'A' : $options['status'];
 
          // It's important to use the $before_widget, $before_title,
          // $after_title and $after_widget variables in your output.
@@ -42,7 +45,7 @@ function widget_flstatus_init() {
 ?>
 		<div style="border: 1px solid #5d5d5d; font-weight: bold; text-align: center;">
 		    <div style="padding: 10px 10px; background-color:#F1F1F1"><?php echo $title ?></div>
-		    <div style="padding: 20px 10px 10px; background:<?php echo $statuscolor ?> url(<?php echo WP_PLUGIN_URL.'/freelance_status/top_arrow.png' ?>) no-repeat scroll center top"><span style="color:#FFFFFF"><?php echo $text ?></span></div>
+		    <div style="padding: 20px 10px 10px; background:<?php echo ($status == 'A')? $statusAcolor : $statusBcolor ;?> url(<?php echo WP_PLUGIN_URL.'/freelance_status/top_arrow.png' ?>) no-repeat scroll center top"><span style="color:#FFFFFF"><?php echo ($status == 'A')? $textA : $textB ; ?></span></div>
 		</div>
 <?php
 		 echo $after_widget;
@@ -65,8 +68,11 @@ function widget_flstatus_init() {
         if ( $_POST['flstatus-submit'] ) {
             // Clean up control form submission options
             $newoptions['title'] = strip_tags(stripslashes($_POST['flstatus-title']));
-            $newoptions['text'] = strip_tags(stripslashes($_POST['flstatus-text']));
-			$newoptions['statuscolor'] = strip_tags(stripslashes($_POST['flstatus-statuscolor']));
+            $newoptions['textA'] = strip_tags(stripslashes($_POST['flstatus-textA']));
+			$newoptions['textB'] = strip_tags(stripslashes($_POST['flstatus-textB']));
+			$newoptions['statusAcolor'] = strip_tags(stripslashes($_POST['flstatus-statusAcolor']));
+			$newoptions['statusBcolor'] = strip_tags(stripslashes($_POST['flstatus-statusBcolor']));
+			$newoptions['status'] = strip_tags(stripslashes($_POST['flstatus-status']));
         }
 
         // If original widget options do not match control form
@@ -78,17 +84,23 @@ function widget_flstatus_init() {
 
         // Format options as valid HTML. Hey, why not.
         $title = htmlspecialchars($options['title'], ENT_QUOTES);
-        $text = htmlspecialchars($options['text'], ENT_QUOTES);
+        $textA = htmlspecialchars($options['textA'], ENT_QUOTES);
+		$textB = htmlspecialchars($options['textB'], ENT_QUOTES);
 		
-		// ...but don't format the color value
-		$statuscolor = $options['statuscolor'];
+		// ...but don't format the color and status values
+		$statusAcolor = $options['statusAcolor'];
+		$statusBcolor = $options['statusBcolor'];
+		$status = $options['status'];
 
 // The HTML below is the control form for editing options.
 ?>
         <div>
-	        <label for="flstatus-title" style="line-height:35px;display:block;">Widget title: <input type="text" id="flstatus-title" name="flstatus-title" value="<?php echo $title; ?>" /></label>
-	        <label for="flstatus-text" style="line-height:35px;display:block;">Widget text: <input type="text" id="flstatus-text" name="flstatus-text" value="<?php echo $text; ?>" /></label>
-			<label for="flstatus-statuscolor" style="line-height:35px;display:block;">Status color: <input type="text" id="flstatus-statuscolor" name="flstatus-statuscolor" value="<?php echo $statuscolor; ?>" /></label>
+	        <label for="flstatus-title" style="line-height:35px;display:block;">Status description:</label> <input type="text" id="flstatus-title" name="flstatus-title" value="<?php echo $title; ?>" />
+	        <label for="flstatus-textA" style="line-height:35px;display:block;">Status A text: <br /></label><input type="text" id="flstatus-textA" name="flstatus-textA" value="<?php echo $textA; ?>" />
+			<label for="flstatus-statusAcolor" style="line-height:35px;display:block;">Status A color: </label><input type="text" size="7" maxlength="7" id="flstatus-statusAcolor" name="flstatus-statusAcolor" value="<?php echo $statusAcolor; ?>" />
+			<label for="flstatus-textB" style="line-height:35px;display:block;">Status B text: <br /></label><input type="text" id="flstatus-textB" name="flstatus-textB" value="<?php echo $textB; ?>" />
+			<label for="flstatus-statusBcolor" style="line-height:35px;display:block;">Status B color: </label><input type="text" size="7" maxlength="7" id="flstatus-statusBcolor" name="flstatus-statusBcolor" value="<?php echo $statusBcolor; ?>" />
+			<label for="flstatus-status" style="line-height:35px;display:block;">Current status: </label><input type="radio" id="flstatus-status" name="flstatus-status" value="A" <?php echo ($status == 'A')? 'checked="checked"': ''; ?>/>A <input type="radio" id="flstatus-status" name="flstatus-status" value="B" <?php echo ($status == 'B')? 'checked="checked"': ''; ?>/>B
 	        <input type="hidden" name="flstatus-submit" id="flstatus-submit" value="1" />
         </div>
     <?php
