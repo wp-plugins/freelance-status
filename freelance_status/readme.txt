@@ -26,7 +26,7 @@ GPL
 
 == Screenshots ==
 
-1. freelance_status_screenshot.png
+1. screen
 
 == Changelog ==
 
