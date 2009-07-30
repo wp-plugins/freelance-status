@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Freelance Status
-Plugin URI: http://konrad-haenel.de
+Plugin URI: http://konrad-haenel.de/downloads/freelance-status-wordpress-widget/
 Description: A simple Freelance Status sidebar widget for Wordpress
 Author: Konrad Haenel
-Version: 0.0.2
+Version: 0.0.4
 Author URI: http://konrad-haenel.de
 
     My Widget is released under the GNU General Public License (GPL)
