@@ -4,7 +4,7 @@ Plugin Name: Freelance Status
 Plugin URI: http://konrad-haenel.de/downloads/freelance-status-wordpress-widget/
 Description: A simple Freelance Status sidebar widget for Wordpress
 Author: Konrad Haenel
-Version: 0.0.4
+Version: 0.0.5
 Author URI: http://konrad-haenel.de
 
     My Widget is released under the GNU General Public License (GPL)
@@ -45,7 +45,7 @@ function widget_flstatus_init() {
 ?>
 		<div style="border: 1px solid #5d5d5d; font-weight: bold; text-align: center;">
 		    <div style="padding: 10px 10px; background-color:#F1F1F1"><?php echo $title ?></div>
-		    <div style="padding: 20px 10px 10px; background:<?php echo ($status == 'A')? $statusAcolor : $statusBcolor ;?> url(<?php echo WP_PLUGIN_URL.'/freelance_status/top_arrow.png' ?>) no-repeat scroll center top"><span style="color:#FFFFFF"><?php echo ($status == 'A')? $textA : $textB ; ?></span></div>
+		    <div style="padding: 20px 10px 10px; background:<?php echo ($status == 'A')? $statusAcolor : $statusBcolor ;?> url(<?php echo WP_PLUGIN_URL.'/freelance-status/top_arrow.png' ?>) no-repeat scroll center top"><span style="color:#FFFFFF"><?php echo ($status == 'A')? $textA : $textB ; ?></span></div>
 		</div>
 <?php
 		 echo $after_widget;
