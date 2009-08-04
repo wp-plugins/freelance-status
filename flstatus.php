@@ -4,7 +4,7 @@ Plugin Name: Freelance Status
 Plugin URI: http://konrad-haenel.de/downloads/freelance-status-wordpress-widget/
 Description: A simple Freelance Status sidebar widget for Wordpress
 Author: Konrad Haenel
-Version: 0.0.5
+Version: 0.0.6
 Author URI: http://konrad-haenel.de
 
     My Widget is released under the GNU General Public License (GPL)
@@ -37,6 +37,7 @@ function widget_flstatus_init() {
 		$textB = empty($options['textB']) ? 'I\'m not available.' : $options['textB'];
 		$statusAcolor = empty($options['statusAcolor']) ? '#5d8c5b' : $options['statusAcolor'];
 		$statusBcolor = empty($options['statusBcolor']) ? '#8c5b5b' : $options['statusBcolor'];
+		$subline = empty($options['subline']) ? '' : $options['subline'];
 		$status = empty($options['status']) ? 'A' : $options['status'];
 
          // It's important to use the $before_widget, $before_title,
@@ -45,7 +46,10 @@ function widget_flstatus_init() {
 ?>
 		<div style="border: 1px solid #5d5d5d; font-weight: bold; text-align: center;">
 		    <div style="padding: 10px 10px; background-color:#F1F1F1"><?php echo $title ?></div>
-		    <div style="padding: 20px 10px 10px; background:<?php echo ($status == 'A')? $statusAcolor : $statusBcolor ;?> url(<?php echo WP_PLUGIN_URL.'/freelance-status/top_arrow.png' ?>) no-repeat scroll center top"><span style="color:#FFFFFF"><?php echo ($status == 'A')? $textA : $textB ; ?></span></div>
+		    <div style="padding: 20px 10px 10px; background:<?php echo ($status == 'A')? $statusAcolor : $statusBcolor ;?> url(<?php echo WP_PLUGIN_URL.'/freelance-status/top_arrow.png' ?>) no-repeat scroll center top">
+			<span style="color:#FFFFFF"><?php echo ($status == 'A')? $textA : $textB ; ?></span>
+			<?php if ($subline != '') { ?><br><span style="font-weight: normal; font-size: .8em; color:#FFFFFF;"><?php echo $subline; ?></span><?php } ?>
+			</div>
 		</div>
 <?php
 		 echo $after_widget;
@@ -67,6 +71,7 @@ function widget_flstatus_init() {
 			$newoptions['textB'] = strip_tags(stripslashes($_POST['flstatus-textB']));
 			$newoptions['statusAcolor'] = strip_tags(stripslashes($_POST['flstatus-statusAcolor']));
 			$newoptions['statusBcolor'] = strip_tags(stripslashes($_POST['flstatus-statusBcolor']));
+			$newoptions['subline'] = strip_tags(stripslashes($_POST['flstatus-subline']));
 			$newoptions['status'] = strip_tags(stripslashes($_POST['flstatus-status']));
 			
 			// If original widget options do not match control form
@@ -81,6 +86,7 @@ function widget_flstatus_init() {
         $title = htmlspecialchars($options['title'], ENT_QUOTES);
         $textA = htmlspecialchars($options['textA'], ENT_QUOTES);
 		$textB = htmlspecialchars($options['textB'], ENT_QUOTES);
+		$subline = htmlspecialchars($options['subline'], ENT_QUOTES);
 		
 		// ...but don't format the color and status values
 		$statusAcolor = $options['statusAcolor'];
@@ -91,11 +97,18 @@ function widget_flstatus_init() {
 ?>
         <div>
 	        <label for="flstatus-title" style="line-height:35px;display:block;">Status description:</label> <input type="text" id="flstatus-title" name="flstatus-title" value="<?php echo $title; ?>" />
+			<hr />
+			<label for="flstatus-status" style="line-height:35px;display:block;">Current status: </label>
+				<input type="radio" id="flstatus-status" name="flstatus-status" value="A" <?php echo ($status == 'A')? 'checked="checked"': ''; ?>/>A 
+				<input type="radio" id="flstatus-status" name="flstatus-status" value="B" <?php echo ($status == 'B')? 'checked="checked"': ''; ?>/>B
+			<hr />
 	        <label for="flstatus-textA" style="line-height:35px;display:block;">Status A text: <br /></label><input type="text" id="flstatus-textA" name="flstatus-textA" value="<?php echo $textA; ?>" />
 			<label for="flstatus-statusAcolor" style="line-height:35px;display:block;">Status A color: </label><input type="text" size="7" maxlength="7" id="flstatus-statusAcolor" name="flstatus-statusAcolor" value="<?php echo $statusAcolor; ?>" />
+			<hr />
 			<label for="flstatus-textB" style="line-height:35px;display:block;">Status B text: <br /></label><input type="text" id="flstatus-textB" name="flstatus-textB" value="<?php echo $textB; ?>" />
 			<label for="flstatus-statusBcolor" style="line-height:35px;display:block;">Status B color: </label><input type="text" size="7" maxlength="7" id="flstatus-statusBcolor" name="flstatus-statusBcolor" value="<?php echo $statusBcolor; ?>" />
-			<label for="flstatus-status" style="line-height:35px;display:block;">Current status: </label><input type="radio" id="flstatus-status" name="flstatus-status" value="A" <?php echo ($status == 'A')? 'checked="checked"': ''; ?>/>A <input type="radio" id="flstatus-status" name="flstatus-status" value="B" <?php echo ($status == 'B')? 'checked="checked"': ''; ?>/>B
+			<hr />
+			<label for="flstatus-subline" style="line-height:35px;display:block;">Subline: <br /></label><input type="text" id="flstatus-subline" name="flstatus-subline" value="<?php echo $subline; ?>" />
 	        <input type="hidden" name="flstatus-submit" id="flstatus-submit" value="1" />
         </div>
     <?php
